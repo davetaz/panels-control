@@ -1,0 +1,145 @@
+<div class="panels-screen">
+    <!-- Hidden select for JavaScript to populate -->
+    <select id="panelSelect" style="display: none;" disabled>
+        <option value="">Loading panels...</option>
+    </select>
+
+    <div class="panel-name-container" id="panelNameContainer" style="display: none;">
+        <div class="panel-name-bubble" id="panelNameBubble">
+            <span id="panelNameText"></span>
+        </div>
+        <button id="addMacroButton" class="panel-macro-button" title="Add macro">+ Macro</button>
+        <button id="addTrainButton" class="panel-macro-button" title="Add train">+ Train</button>
+    </div>
+
+    <div class="panel-stage-wrapper">
+        <div id="panelCanvasViewport" class="panel-canvas-viewport">
+            <div id="trackCanvas" class="panel-canvas">
+                <div class="panel-placeholder" id="panelPlaceholder">
+                    <p>Select a panel to begin</p>
+                </div>
+            </div>
+        </div>
+        <div id="panelControllerLayer" class="panel-controller-layer"></div>
+    </div>
+</div>
+
+<div id="macroSelectModal" class="panel-modal" style="display: none;">
+    <div class="panel-modal-content">
+        <div class="panel-modal-header">
+            <h3>Select Macro</h3>
+            <button id="closeMacroModal" class="panel-modal-close">×</button>
+        </div>
+        <div class="panel-modal-body" id="macroList">
+            <p>Loading macros…</p>
+        </div>
+    </div>
+</div>
+
+<template id="panelControllerTemplate">
+    <div class="panel-controller-card" data-accessory-id="">
+        <div class="panel-controller-header">
+            <span class="panel-controller-title"></span>
+            <div class="panel-controller-actions">
+                <button class="panel-controller-pin" title="Pin controller">📌</button>
+                <button class="panel-controller-close" title="Close controller">×</button>
+            </div>
+        </div>
+        <div class="panel-controller-body">
+            <!-- Accessory controls will be injected here -->
+        </div>
+        <div class="panel-card-resize-handle"></div>
+    </div>
+</template>
+
+<template id="panelTrainContainerTemplate">
+    <div class="button-container">
+        <button class="add-train-button dcc">
+            <img src='img/keypad.svg' class='keypadIcon'/><br/>
+            Add via DCC#
+        </button>
+        <button class="add-train-button depot">
+            <img src='img/engine-shed.png' class='shedIcon'/><br/>
+            Select from depot
+        </button>
+    </div>
+</template>
+
+<template id="panelTrainTemplate">
+    <div class="train">
+        <section class="train-details">
+            <div class="train-image">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjZGRkIi8+Cjx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjNjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5UcmFpbjwvdGV4dD4KPC9zdmc+"/>
+            </div>
+            <span class="bubble train-name">
+                Train
+            </span>
+            <span class="bubble DCCNumber">
+                DCC #<span class="train-number"></span>
+            </span>
+            <span class="bubble bottomRight">Speed: <span class="throttle-value">0</span></span>
+        </section>
+        <section class="train-control">
+            <panel class="throttle-panel">
+                <div class="train-throttle-container">
+                    <div class="throttle-quick-buttons">
+                        <button type="button" class="throttle-quick-btn" data-pct="100" title="Set 100%">100%</button>
+                        <button type="button" class="throttle-quick-btn" data-pct="66" title="Set 66%">66%</button>
+                        <button type="button" class="throttle-quick-btn" data-pct="33" title="Set 33%">33%</button>
+                        <button type="button" class="throttle-quick-btn throttle-quick-stop" data-pct="0" title="Stop">Stop</button>
+                    </div>
+                    <div class="throttle-slider-spacer"></div>
+                    <div class="throttle-slider-wrap">
+                        <div class="throttle-slider" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0" style="--val: 0;">
+                            <input type="hidden" class="throttle" value="0">
+                        </div>
+                    </div>
+                    <div class="throttle-slider-spacer"></div>
+                </div>
+
+                <div class="direction-buttons">
+                    <button id="forward">
+                        <span>&#8610;</span>
+                    </button>
+                    <button id="reverse" class="active">
+                        <span>&#8611;</span>
+                    </button>
+                </div>
+            </panel>
+            <panel class="function-panel">
+                <!-- Function buttons will be appended here -->
+                <button id="allFunctions" class="all-functions-button">
+                    <name>All functions</name>
+                </button>
+            </panel>
+            <div class="all-functions-panel function-panel" style="display: none;">
+                <!-- All functions will be displayed here -->
+            </div>
+        </section>
+    </div>
+</template>
+
+<template id="panelKeypadTemplate">
+    <div class="keypad">
+        <div class="keypad-content">
+            <span class="close">&times;</span>
+            <h2>Train DCC Number (1-9999)</h2>
+            <input type="text" class="keypadInput">
+            <div class="keypad-keys">
+                <button class="keypad-key">1</button>
+                <button class="keypad-key">2</button>
+                <button class="keypad-key">3</button>
+                <button class="keypad-key">4</button>
+                <button class="keypad-key">5</button>
+                <button class="keypad-key">6</button>
+                <button class="keypad-key">7</button>
+                <button class="keypad-key">8</button>
+                <button class="keypad-key">9</button>
+                <button class="keypad-key">0</button>
+                <button class="keypad-key clear">C</button>
+                <button class="keypad-key confirm">OK</button>
+            </div>
+        </div>
+    </div>
+</template>
+

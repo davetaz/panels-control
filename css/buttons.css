@@ -1,0 +1,397 @@
+/* Control App Button Styles - Adapted from panels */
+
+button {
+  padding: 10px 10px;
+  box-sizing: border-box;
+  background-color: var(--button-base);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--button-hover);
+}
+
+.function-panel {
+  margin-left: 6px;
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  max-height: 345px;
+  width: 180px;
+  max-width: 180px;
+  overflow: hidden;
+  min-width: 175px;
+}
+
+.all-functions-panel {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  grid-template-columns: repeat(4, 4fr);
+  padding: 5px;
+  min-height: 100%;
+  height: 100%;
+  max-height: 355px;
+  margin-left: -2px;
+  padding-right: 0px;
+  overflow-y: scroll;
+}
+
+.function-panel button {
+  height: 80px;
+  width: auto;
+  padding-top: 2px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  text-wrap: wrap;
+}
+
+.function-panel .function-button-doubleSpan {
+  grid-column: span 2;
+  width: auto;
+}
+
+/* In child lock desktop mode, let function buttons auto-size vertically */
+@media screen and (min-width: 769px) {
+  .container.childLock-desktop .function-panel button {
+    height: auto;
+    min-height: 44px;
+  }
+
+  /* In desktop lock view, make all-functions buttons square (width == height) */
+  .container.childLock-desktop .all-functions-panel .function-button {
+    height: auto;
+  }
+
+  /* In desktop lock view, let the all-functions panel use full column height and scroll */
+  .container.childLock-desktop .all-functions-panel {
+    height: 100%;
+    max-height: none;
+    overflow-y: auto;
+    row-gap: 30px;
+  }
+
+  /* In desktop lock view, allow function button labels to scale (no 0.7em cap) */
+  .container.childLock-desktop .function-panel button name {
+    font-size: inherit;
+  }
+}
+
+.function-panel button img {
+  max-width: 50%;
+}
+
+.function-panel button img.on {
+  max-width: 60%;
+}
+
+.function-panel button name {
+  font-size: 0.7em;
+  display: block;
+}
+
+.function-panel .all-functions-button {
+  grid-column: span 2;
+  width: auto;
+  height: 50px;
+  font-size: 20px;
+}
+
+button.active {
+  position: relative;
+  color: #fff;
+  /* 3D pressed effect */
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.05);
+  /* Lighten background ~20% when active */
+  background-color: color-mix(in srgb, var(--button-base) 80%, white 20%);
+}
+
+button.active::before {
+  /* remove blue outline for active */
+  content: none;
+}
+
+.direction-buttons {
+  display: flex;
+  width: 100%;
+}
+
+button .on {
+  display: none;
+}
+
+button.active .off {
+  display: none;
+}
+
+button.active .on {
+  display: inline;
+}
+
+/* Child lock disabled states */
+.function-button.childLock-disabled {
+  background: tan;
+  opacity: 0.5;
+  cursor: default;
+  box-shadow: none;
+}
+
+.function-button.childLock-disabled:hover {
+  background: tan;
+}
+
+.train.childLock-throttle-disabled .throttle-slider,
+.train.childLock-throttle-disabled .throttle-quick-btn,
+.train.childLock-throttle-disabled .direction-buttons button {
+  opacity: 0.5;
+  cursor: default;
+  box-shadow: none;
+}
+
+.train.childLock-direction-disabled .direction-buttons button {
+  opacity: 0.5;
+  cursor: default;
+  box-shadow: none;
+}
+
+.direction-buttons button {
+  flex: 1;
+  text-align: center;
+  /* Raised effect by default */
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.35), 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.stop-button {
+  display: flex;
+  width: 100%;
+}
+
+.stop-button button {
+  flex: 1;
+  text-align: center;
+  /* Raised effect by default */
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.35), 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.button-container {
+  position: relative;
+  top: 150px;
+  width: auto;
+  padding: 10px;
+  padding-left: 18px;
+  max-height: 250px;
+  height: 250px;
+}
+
+.add-train-button {
+  margin-right: 10px;
+  width: 160px;
+  height: 250px;
+  display: inline-block;
+  word-wrap: break-word;
+}
+
+.container-selector {
+  width: 100%;
+  text-align: center;
+}
+
+.container-selector button {
+  width: 24%;
+  padding: 0px;
+  margin: 0;
+  border-radius: 0;
+  height: 60px;
+  vertical-align: top;
+  margin-top: 1px;
+}
+
+.container-selector button .train-image {
+  min-height: 50px;
+}
+
+.menu-icon {
+  flex-direction: column;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.bar {
+  width: 45px;
+  height: 2px;
+  background-color: white;
+  margin: 10px 0;
+}
+
+#main-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#main-menu li {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+#main-menu li:last-child {
+  border-bottom: none;
+}
+
+.menuIcon {
+  position: relative;
+  float: right;
+  margin: 0;
+}
+
+/* Lock padlock icon styling (plain white, matching other header icons) */
+.childLockIcon {
+  color: #fff;
+}
+
+.childLockIcon .padlock-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.grid-icon {
+  display: grid;
+  grid-template-columns: repeat(2, 10px);
+  grid-template-rows: repeat(2, 10px);
+  gap: 6px;
+}
+
+.grid-icon span {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: #ddd;
+}
+
+.powerButton {
+  position: absolute;
+  left: 1em;
+}
+
+.powerButton.ready {
+  color: green;
+}
+
+.powerButton.powerOff {
+  color: red;
+}
+
+/* Keypad styles */
+.keypad {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--background);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+.keypad-content {
+  text-align: center;
+}
+
+.keypad-content h2 {
+  color: var(--text-bright);
+  margin-bottom: 20px;
+}
+
+.keypadInput {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: var(--background-alt);
+  color: var(--text-bright);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.keypad-keys {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.keypad-key {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px;
+  font-size: 18px;
+  background-color: var(--button-base);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+  .keypad {
+    width: min(90vw, 320px);
+    min-width: 280px;
+  }
+
+  .keypad-keys {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .keypad-key {
+    min-height: 48px;
+  }
+}
+
+.keypad-key:hover {
+  background-color: var(--button-hover);
+}
+
+.keypad-key.clear {
+  background-color: #dc3545;
+}
+
+.keypad-key.confirm {
+  background-color: #28a745;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-bright);
+}
+
+.close:hover {
+  color: #dc3545;
+}

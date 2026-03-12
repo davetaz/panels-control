@@ -1,0 +1,138 @@
+<div class="form-page-container">
+    <h1>Control Settings</h1>
+
+    <div id="message" class="settings-message" style="display: none;" role="status"></div>
+
+    <div class="form-card">
+        <h2>Status</h2>
+        <div class="status-stack">
+            <div class="status-section">
+                <div class="status-section-head">
+                    <h3>Server &amp; sync</h3>
+                    <button type="button" id="syncNowButton" class="btn btn-small">Sync now</button>
+                </div>
+                <section id="serverSyncStatus" aria-live="polite">
+                    <table>
+                        <tr><td>Account</td><td id="accountStatusCell">Logged in</td></tr>
+                        <tr><td>Mode</td><td id="serverSyncModeCell"><span id="connectionStatus">Checking…</span></td></tr>
+                        <tr><td>Last sync</td><td id="lastSyncAtCell"><span id="lastSyncAtText">—</span></td></tr>
+                        <tr><td>Trains</td><td id="lastSyncTrainsCell">—</td></tr>
+                        <tr><td>Accessories</td><td id="lastSyncAccessoriesCell">—</td></tr>
+                        <tr><td>Panels</td><td id="lastSyncPanelsCell">—</td></tr>
+                        <tr><td>Images</td><td id="lastSyncImagesCell">—</td></tr>
+                    </table>
+                    <p class="connection-sync-hint">Sync when online to save data for offline use. When the server is unreachable, the app runs from the last synced cache. To revoke this device, go to your <a href="#" id="profileLink">profile</a> in the configure app.</p>
+                </section>
+            </div>
+            <div class="status-section">
+                <div class="status-section-head">
+                    <h3>Gateway status</h3>
+                    <button type="button" id="gatewayConfigureBtn" class="btn btn-small">Configure</button>
+                </div>
+                <section id="controllerSocketStatus">
+                    <table><tr><td>Status</td><td>Not connected</td></tr></table>
+                </section>
+            </div>
+            <div class="status-section">
+                <h3>System</h3>
+                <section id="systemStatus">
+                    <table>
+                        <tr><td>Version</td><td id="systemVersionCell">Checking…</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="status-section">
+                <h3>Controller Info</h3>
+                <section id="controllerInfo"></section>
+            </div>
+            <div class="status-section">
+                <div class="status-section-head">
+                    <h3>Macro delay</h3>
+                    <button type="button" id="macroDelayConfigureBtn" class="btn btn-small">Configure</button>
+                </div>
+                <section id="macroDelayStatus">
+                    <table>
+                        <tr><td>Delay between steps</td><td id="macroDelayValueCell">400 ms</td></tr>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-card">
+        <h2>Diagnostics</h2>
+        <p>Run quick tests to verify controller integration.</p>
+        <div class="test-actions">
+            <button type="button" id="runTrainTest" disabled>Run Train Test</button>
+            <button type="button" id="runAccessoryTest" disabled>Run Accessory Test</button>
+        </div>
+        <small id="testAvailabilityNote">Tests are available when the controller is Ready.</small>
+    </div>
+
+    <div class="form-card">
+        <h2>Debug</h2>
+        <label style="display:flex;align-items:center;gap:0.5rem;">
+            <input type="checkbox" id="enableDebug" />
+            Enable debug logging (incoming WebSocket messages)
+        </label>
+        <pre id="debugConsole" class="debug-console" aria-live="polite"></pre>
+    </div>
+
+
+    <!-- Gateway configure modal -->
+    <div id="gatewayModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Gateway configuration</h3>
+                <button id="closeGatewayModal" class="modal-close" aria-label="Close">×</button>
+            </div>
+            <form id="gatewayModalForm">
+                <div class="modal-body">
+                    <input type="text" id="gatewayModalInput" class="gateway-modal-input" aria-label="Gateway host and port">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="gatewayModalCancel">Cancel</button>
+                    <button type="button" id="gatewayModalReset">Reset to default</button>
+                    <button type="submit" id="gatewayModalSave">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Macro delay modal -->
+    <div id="macroDelayModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Macro delay</h3>
+                <button id="closeMacroDelayModal" class="modal-close" aria-label="Close">×</button>
+            </div>
+            <form id="macroDelayModalForm">
+                <div class="modal-body">
+                    <input type="number" id="macroDelayModalInput" class="gateway-modal-input" min="0" max="10000" step="50" aria-label="Delay between steps (milliseconds)">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="macroDelayModalCancel">Cancel</button>
+                    <button type="button" id="macroDelayModalReset">Reset to default</button>
+                    <button type="submit" id="macroDelayModalSave">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Test Modal -->
+    <div id="testModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="testModalTitle">Diagnostic Test</h3>
+                <button id="closeTestModal" class="modal-close" aria-label="Close">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="testStepText">Starting test…</div>
+                <div id="testLog" class="test-log"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="testCancel" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

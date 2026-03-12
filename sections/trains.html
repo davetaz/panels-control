@@ -1,0 +1,274 @@
+<div id="trainContainer" class="containers">
+    <div id="container1" class="container">
+        <div class="button-container">
+            <button class="add-train-button dcc">
+                <img src='img/keypad.svg' class='keypadIcon'/><br/>
+                Add via DCC#
+            </button>
+            <button class="add-train-button depot">
+                <img src='img/engine-shed.png' class='shedIcon'/><br/>
+                Select from depot
+            </button>
+        </div>
+    </div>
+    <div id="container2" class="container">
+        <div class="button-container">
+            <button class="add-train-button dcc">
+                <img src='img/keypad.svg' class='keypadIcon'/><br/>
+                Add via DCC#
+            </button>
+            <button class="add-train-button depot">
+                <img src='img/engine-shed.png' class='shedIcon'/><br/>
+                Select from depot
+            </button>
+        </div>
+    </div>
+    <div id="container3" class="container">
+        <div class="button-container">
+            <button class="add-train-button dcc">
+                <img src='img/keypad.svg' class='keypadIcon'/><br/>
+                Add via DCC#
+            </button>
+            <button class="add-train-button depot">
+                <img src='img/engine-shed.png' class='shedIcon'/><br/>
+                Select from depot
+            </button>
+        </div>
+    </div>
+    <div id="container4" class="container">
+        <div class="button-container">
+            <button class="add-train-button dcc">
+                <img src='img/keypad.svg' class='keypadIcon'/><br/>
+                Add via DCC#
+            </button>
+            <button class="add-train-button depot">
+                <img src='img/engine-shed.png' class='shedIcon'/><br/>
+                Select from depot
+            </button>
+        </div>
+    </div>
+</div>
+<div class="container-selector">
+    <button class="container-button active" data-container="container1">T 1</button>
+    <button class="container-button" data-container="container2">T 2</button>
+    <button class="container-button" data-container="container3">T 3</button>
+    <button class="container-button" data-container="container4">T 4</button>
+</div>
+
+<template id="containerTemplate">
+    <div class="button-container">
+        <button class="add-train-button dcc">
+            <img src='img/keypad.svg' class='keypadIcon'/><br/>
+            Add via DCC#
+        </button>
+        <button class="add-train-button depot">
+            <img src='img/engine-shed.png' class='shedIcon'/><br/>
+            Select from depot
+        </button>
+    </div>
+</template>
+
+<template id="trainTemplate">
+    <div class="train">
+        <section class="train-details">
+            <div class="train-image">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjZGRkIi8+Cjx0ZXh0IHg9IjUwIiB5PSI1NSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0IiBmaWxsPSIjNjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5UcmFpbjwvdGV4dD4KPC9zdmc+"/>
+            </div>
+            <span class="bubble train-name">
+                Train
+            </span>
+            <span class="bubble DCCNumber">
+                DCC #<span class="train-number"></span>
+            </span>
+            <span class="bubble bottomRight">Speed: <span class="throttle-value">0</span></span>
+        </section>
+        <section class="train-control">
+            <panel class="throttle-panel">
+                <div class="train-throttle-container">
+                    <div class="throttle-quick-buttons">
+                        <button type="button" class="throttle-quick-btn" data-pct="100" title="Set 100%">100%</button>
+                        <button type="button" class="throttle-quick-btn" data-pct="66" title="Set 66%">66%</button>
+                        <button type="button" class="throttle-quick-btn" data-pct="33" title="Set 33%">33%</button>
+                        <button type="button" class="throttle-quick-btn throttle-quick-stop" data-pct="0" title="Stop">Stop</button>
+                    </div>
+                    <div class="throttle-slider-spacer"></div>
+                    <div class="throttle-slider-wrap">
+                        <div class="throttle-slider" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0" style="--val: 0;">
+                            <input type="hidden" class="throttle" value="0">
+                        </div>
+                    </div>
+                    <div class="throttle-slider-spacer"></div>
+                </div>
+
+                <div class="direction-buttons">
+                    <button id="forward">
+                        <span>&#8610;</span>
+                    </button>
+                    <button id="reverse" class="active">
+                        <span>&#8611;</span>
+                    </button>
+                </div>
+            </panel>
+            <panel class="function-panel">
+                <!-- Function buttons will be appended here -->
+                <button id="allFunctions" class="all-functions-button">
+                    <name>All functions</name>
+                </button>
+            </panel>
+            <div class="all-functions-panel function-panel" style="display: none;">
+                <!-- All functions will be displayed here -->
+            </div>
+        </section>
+    </div>
+</template>
+
+<template id="keypadTemplate">
+    <div class="keypad">
+        <div class="keypad-content">
+            <span class="close">&times;</span>
+            <h2>Train DCC Number (1-9999)</h2>
+            <input type="text" class="keypadInput">
+            <div class="keypad-keys">
+                <button class="keypad-key">1</button>
+                <button class="keypad-key">2</button>
+                <button class="keypad-key">3</button>
+                <button class="keypad-key">4</button>
+                <button class="keypad-key">5</button>
+                <button class="keypad-key">6</button>
+                <button class="keypad-key">7</button>
+                <button class="keypad-key">8</button>
+                <button class="keypad-key">9</button>
+                <button class="keypad-key">0</button>
+                <button class="keypad-key clear">C</button>
+                <button class="keypad-key confirm">OK</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- Lock configuration modal (trains screen only) -->
+<div id="childLockModal" class="childLockModal" style="display: none;">
+    <div class="childLockModal-backdrop"></div>
+    <div class="childLockModal-content">
+        <div class="childLockModal-header">
+            <h2>Lock controls</h2>
+        </div>
+        <div class="childLockModal-body">
+            <div id="childLockConfigStep">
+                <p>Select which controls are available for this train.</p>
+
+                <div class="childLock-section">
+                    <div class="childLock-section-header">
+                        <span>Throttle</span>
+                        <label class="childLock-toggle childLock-toggle-switch">
+                            <input type="checkbox" id="childLockThrottleEnabled" checked>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="childLock-section">
+                    <div class="childLock-section-header">
+                        <span>Direction</span>
+                        <label class="childLock-toggle childLock-toggle-switch">
+                            <input type="checkbox" id="childLockDirectionEnabled" checked>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="childLock-section">
+                    <div class="childLock-section-header">
+                        <span>Max speed</span>
+                        <span id="childLockMaxSpeedLabel">100%</span>
+                    </div>
+                    <div class="childLock-max-speed-row">
+                        <input type="range" id="childLockMaxSpeed" min="10" max="100" step="5" value="100">
+                        <div class="childLock-max-speed-buttons">
+                            <button type="button" class="childLock-max-speed-btn" data-pct="33">33%</button>
+                            <button type="button" class="childLock-max-speed-btn" data-pct="66">66%</button>
+                            <button type="button" class="childLock-max-speed-btn" data-pct="100">100%</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="childLock-section">
+                    <div class="childLock-section-header">
+                        <span>Functions</span>
+                        <div class="childLock-functions-actions">
+                            <button type="button" id="childLockEnableAllFunctions" class="btn btn-secondary btn-small">Enable all</button>
+                            <button type="button" id="childLockDisableAllFunctions" class="btn btn-secondary btn-small">Disable all</button>
+                        </div>
+                    </div>
+                    <div id="childLockFunctionsList" class="childLock-functions-list">
+                        <!-- Per-function sliders/toggles will be injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="childLockPinStep" style="display: none;">
+                <div class="childLock-section">
+                    <label for="childLockPinInput">PIN to unlock</label>
+                    <input id="childLockPinInput" type="password" inputmode="none" readonly maxlength="6" placeholder="Tap numbers below">
+                    <div class="childLock-pin-keypad">
+                        <button type="button" class="childLock-pin-key" data-digit="1">1</button>
+                        <button type="button" class="childLock-pin-key" data-digit="2">2</button>
+                        <button type="button" class="childLock-pin-key" data-digit="3">3</button>
+                        <button type="button" class="childLock-pin-key" data-digit="4">4</button>
+                        <button type="button" class="childLock-pin-key" data-digit="5">5</button>
+                        <button type="button" class="childLock-pin-key" data-digit="6">6</button>
+                        <button type="button" class="childLock-pin-key" data-digit="7">7</button>
+                        <button type="button" class="childLock-pin-key" data-digit="8">8</button>
+                        <button type="button" class="childLock-pin-key" data-digit="9">9</button>
+                        <button type="button" class="childLock-pin-key clear">C</button>
+                        <button type="button" class="childLock-pin-key" data-digit="0">0</button>
+                        <button type="button" class="childLock-pin-key backspace">⌫</button>
+                    </div>
+                    <small class="childLock-help">This PIN will be required to unlock controls on this device.</small>
+                    <div id="childLockPinError" class="childLock-error" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="childLockModal-footer">
+            <button type="button" id="childLockCancel" class="btn btn-secondary">Cancel</button>
+            <button type="button" id="childLockNext" class="btn btn-primary">Next</button>
+            <button type="button" id="childLockBack" class="btn btn-secondary" style="display: none;">Back</button>
+            <button type="button" id="childLockSave" class="btn btn-primary" style="display: none;">Enable lock</button>
+        </div>
+    </div>
+</div>
+
+<!-- Lock unlock (PIN entry) modal -->
+<div id="childLockUnlockModal" class="childLockModal" style="display: none;">
+    <div class="childLockModal-backdrop"></div>
+    <div class="childLockModal-content">
+        <div class="childLockModal-header">
+            <h2>Unlock controls</h2>
+        </div>
+        <div class="childLockModal-body">
+            <p>Enter the PIN to unlock full controls.</p>
+            <div class="childLock-section">
+                <label for="childLockUnlockPinInput">PIN</label>
+                <input id="childLockUnlockPinInput" type="password" inputmode="none" readonly maxlength="6" placeholder="Tap numbers below">
+                <div class="childLock-pin-keypad">
+                    <button type="button" class="childLock-unlock-pin-key" data-digit="1">1</button>
+                    <button type="button" class="childLock-unlock-pin-key" data-digit="2">2</button>
+                    <button type="button" class="childLock-unlock-pin-key" data-digit="3">3</button>
+                    <button type="button" class="childLock-unlock-pin-key" data-digit="4">4</button>
+                    <button type="button" class="childLock-unlock-pin-key" data-digit="5">5</button>
+                    <button type="button" class="childLock-unlock-pin-key" data-digit="6">6</button>
+                    <button type="button" class="childLock-unlock-pin-key" data-digit="7">7</button>
+                    <button type="button" class="childLock-unlock-pin-key" data-digit="8">8</button>
+                    <button type="button" class="childLock-unlock-pin-key" data-digit="9">9</button>
+                    <button type="button" class="childLock-unlock-pin-key clear">C</button>
+                    <button type="button" class="childLock-unlock-pin-key" data-digit="0">0</button>
+                    <button type="button" class="childLock-unlock-pin-key backspace">⌫</button>
+                </div>
+                <div id="childLockUnlockError" class="childLock-error" style="display: none;"></div>
+            </div>
+        </div>
+        <div class="childLockModal-footer">
+            <button type="button" id="childLockUnlockCancel" class="btn btn-secondary">Cancel</button>
+            <button type="button" id="childLockUnlockConfirm" class="btn btn-primary">Unlock</button>
+        </div>
+    </div>
+</div>
+

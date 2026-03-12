@@ -1,0 +1,40 @@
+<!-- Search Section -->
+<div class="search-container">
+    <input type="text" id="accessorySearch" placeholder="Search accessories and macros by name..." />
+</div>
+
+<!-- Accessory Template -->
+<template id="accessoryTemplate">
+    <div class="accessory-card" data-accessory-id="">
+        <div class="accessory-stage">
+            <!-- Konva canvas will be rendered here -->
+        </div>
+        <div class="accessory-control">
+            <!-- Control buttons will be populated here -->
+        </div>
+        <span class="bubble accessory-name">
+            <!-- Accessory name will be populated here -->
+        </span>
+    </div>
+</template>
+
+<div class="accessories-grid" id="accessoriesGrid">
+    <!-- Accessories will be populated here -->
+</div>
+
+<div id="noAccessories" style="display: none; text-align: center; padding: 40px; color: var(--text-muted);">
+    <h3>No accessories configured</h3>
+    <p>Configure accessories in the main application to control them here.</p>
+</div>
+
+<div id="macroInfoModal" class="modal" style="display: none;">
+    <div class="modal-content macro-info-modal">
+        <div class="modal-header">
+            <h3 id="macroInfoTitle"></h3>
+            <span class="modal-close" onclick="closeMacroInfoModal()">&times;</span>
+        </div>
+        <div class="modal-body" id="macroInfoBody">
+            <!-- Macro info populated dynamically -->
+        </div>
+    </div>
+</div>

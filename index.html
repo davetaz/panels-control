@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PanelsD.CC Control</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/ext/water.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/range_input.css">
+    <link rel="stylesheet" href="css/accessories.css">
+    <link rel="stylesheet" href="css/panels-base.css">
+    <link rel="stylesheet" href="css/panels-controllers.css">
+    
+    <!-- Third-party Libraries -->
+    <script src="lib/jquery-3.7.1.min.js"></script>
+    <script src="lib/konva.min.js"></script>
+    <script src="js/panelBuilder-core.js"></script>
+    <script src="js/panelBuilder-elements.js"></script>
+    <script src="js/panelBuilder-dcc.js"></script>
+    <script src="js/panelBuilder-save.js"></script>
+</head>
+<body>
+    <!-- Error banner removed: footer used for notifications -->
+    
+    <!-- Top Navigation -->
+    <nav id="topNav" class="topNav">
+        <button id="powerButton" class="powerButton" title="Toggle track power">⏻</button>
+        <div id="serverStatus" class="serverStatus headerStatus"><span id="serverStatusText">Offline</span></div>
+        <div class="nav-links">
+            <button class="navButton" target="trains">Trains</button>
+            <button class="navButton" target="accessories">Accessories</button>
+            <div class="nav-panel-menu" id="navPanelMenu">
+                <button class="navButton navPanelButton" id="panelsNavButton" target="panels" aria-haspopup="true" aria-expanded="false">
+                    Panels ▾
+                </button>
+                <div class="nav-panel-dropdown" id="navPanelDropdown">
+                    <div class="nav-panel-dropdown-list" id="navPanelDropdownList">
+                        <p class="nav-panel-empty">Loading panels…</p>
+                    </div>
+                </div>
+            </div>
+            <button class="navButton" target="settings">Settings</button>
+            <button id="menuIcon" class="menuIcon" onclick="toggleMenuModal()">
+                <div class="grid-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Modal for Small Screen Navigation -->
+    <nav id="menuModal" class="menuModal">
+        <div class="menuModal-content">
+            <a href="#" class="menuModal-home-btn" onclick="navigateTo('trains')">Home</a>
+            <div class="menuModal-buttons">
+                <button class="navButton" target="trains" onclick="navigateTo('trains')">
+                    <img src='img/engine-shed.png' class='controlIcon'/><br/>
+                    Trains
+                </button>
+                <button class="navButton" target="accessories" onclick="navigateTo('accessories')">
+                    <img src='img/accessories.png' class='accessoriesIcon'/><br/>
+                    Accessories
+                </button>
+                <button class="navButton" target="panels" onclick="navigateTo('panels')">
+                    <img src='img/panel.png' class='panelIcon'/><br/>
+                    Panels
+                </button>
+                <button class="navButton" target="settings" onclick="navigateTo('settings')">
+                    <img src='img/settings.png' class='settingsIcon'/><br/>
+                    Settings
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main>
+        <section class="content">
+            <!-- Control Section -->
+            <section id="trains" path="trains" style="display: block;">
+                <!-- Content loaded dynamically -->
+            </section>
+            
+            <!-- Accessories Section -->
+            <section id="accessories" path="accessories" style="display: none;">
+                <!-- Content loaded dynamically -->
+            </section>
+            
+            <!-- Settings Section -->
+            <section id="settings" path="settings" style="display: none; width: 100%;">
+                <!-- Content loaded dynamically -->
+            </section>
+
+            <!-- Panels Section -->
+            <section id="panels" path="panels" style="display: none;">
+                <!-- Content loaded dynamically -->
+            </section>
+        </section>
+        
+    </main>
+    
+    <!-- Slide-over notification container (matches configure app styling) -->
+    <div id="notificationContainer" class="notification-container"></div>
+    
+    <!-- Footer removed; status moved to header -->
+    
+    <!-- Login required / invalid session modal (blocks until logged in) -->
+    <div id="controlKeyModal" class="controlKeyModal" aria-modal="true" aria-labelledby="controlKeyModalTitle" style="display: none;">
+        <div class="controlKeyModal-backdrop"></div>
+        <div class="controlKeyModal-content">
+            <h2 id="controlKeyModalTitle" class="controlKeyModal-title">Log in</h2>
+            <p id="controlKeyModalMessage" class="controlKeyModal-message">Log in with your panelsd.cc account to connect this control app.</p>
+            <form id="controlKeyModalForm" class="controlKeyModal-form">
+                <label for="controlKeyModalEmail">Email</label>
+                <input type="email" id="controlKeyModalEmail" class="controlKeyModal-input" placeholder="Your email" autocomplete="email" />
+                <label for="controlKeyModalPassword">Password</label>
+                <input type="password" id="controlKeyModalPassword" class="controlKeyModal-input" placeholder="Your password" autocomplete="current-password" />
+                <div id="controlKeyModalValidation" class="controlKeyModal-validation" style="display: none;"></div>
+                <div class="controlKeyModal-actions">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <a href="#" id="controlKeyModalSettingsLink" class="controlKeyModal-settingsLink">Open Settings</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Depot selection modal (global, used by trains and panels) -->
+    <div id="depotModal" class="depotModal" style="display: none;">
+        <div class="depotModal-content">
+            <div class="depotModal-header">
+                <h2>Select Train from Depot</h2>
+                <button class="depotModal-close" onclick="closeDepotModal()">&times;</button>
+            </div>
+            <div class="depotModal-search">
+                <input type="text" id="depotSearch" placeholder="Search trains..." />
+            </div>
+            <div class="depotModal-body">
+                <div id="depotTrainList" class="depotTrainGrid">
+                    <!-- Train cards will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript Files -->
+    <script src="config-override.js"></script>
+    <script src="config.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/trains.js"></script>
+    <script src="js/accessories.js"></script>
+    <script src="js/panels-core.js"></script>
+    <script src="js/panels-controllers.js"></script>
+    <script src="js/panels-trains.js"></script>
+    <script src="js/panels.js"></script>
+    <script src="js/main.js"></script>
+    
+    <!-- Mobile Navigation Script -->
+    <script>
+        function toggleMenuModal() {
+            event.preventDefault();
+            const menuModal = document.getElementById("menuModal");
+            menuModal.style.display = (menuModal.style.display === "block") ? "none" : "block";
+        }
+
+        function navigateTo(target) {
+            // On mobile, block panel control and keep the menu open with a slide-over style message
+            if (target === 'panels' && typeof isMobileOrTablet === 'function' && isMobileOrTablet()) {
+                const msg = 'Panel control is not available on mobile. Please use a tablet or desktop.';
+                if (typeof showNotification === 'function') {
+                    showNotification(msg, 'info');
+                } else {
+                    alert(msg);
+                }
+                return;
+            }
+
+            toggleMenuModal();
+            if (typeof showScreen === 'function') {
+                showScreen(target);
+            }
+        }
+    </script>
+</body>
+</html>

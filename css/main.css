@@ -1,0 +1,1363 @@
+/* Control App Main Styles - Adapted from panels */
+:root {
+  --max-content-width: 1200px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--text-bright);
+  font-family: Arial, sans-serif;
+}
+
+main {
+  display: flex;
+  flex: 1;
+  background-color: var(--background-body);
+}
+
+/* Navigation Styles - Matching main app */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-self: end;
+}
+
+.nav-links button {
+  color: var(--text-bright);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.nav-links button:hover {
+  background-color: var(--button-hover);
+}
+
+.nav-panel-menu {
+  position: relative;
+}
+
+.nav-panel-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 220px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.35);
+  padding: 6px 0;
+  display: none;
+  z-index: 20;
+}
+
+.nav-panel-menu.open .nav-panel-dropdown {
+  display: block;
+}
+
+.nav-panel-dropdown-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.nav-panel-item {
+  width: 100%;
+  text-align: left;
+  padding: 16px !important;
+  background: transparent;
+  border: none;
+  color: var(--text-bright);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.nav-panel-item:hover {
+  background: var(--button-hover);
+}
+
+.nav-panel-item.active {
+  background: var(--button-base);
+  color: #fff;
+}
+
+.nav-panel-empty {
+  margin: 0;
+  padding: 8px 16px;
+  color: var(--text-muted, #9aa2b1);
+}
+
+.topNav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* equal gutters, centered status */
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Explicit grid placement for header items */
+#powerButton { grid-column: 1; justify-self: start; }
+#serverStatus { grid-column: 2; justify-self: center; }
+.nav-links { grid-column: 3; justify-self: end; }
+.topNav .menuIcon { float: none; }
+
+/* Centered header status between power and nav */
+.serverStatus {
+  color: var(--text-bright);
+  cursor: default;
+  margin: 0 auto;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--background-alt);
+  justify-self: center;
+  text-align: center;
+  display: inline-block;
+}
+
+.serverStatus.ready { background: rgba(0, 128, 0, 0.15); border-color: rgba(0,128,0,0.4); }
+.serverStatus.waiting { background: rgba(255, 165, 0, 0.15); border-color: rgba(255,165,0,0.4); }
+.serverStatus.offline { background: rgba(255, 0, 0, 0.15); border-color: rgba(255,0,0,0.4); }
+
+/* Top error banner deprecated in favor of footer notifications */
+
+.content {
+  flex-grow: 1;
+  overflow-y: scroll;
+  display: flex;
+}
+
+/* Ensure accessories section works properly in both flex and block contexts when visible */
+section.content #accessories[style*="display: block"] {
+  display: block !important;
+  width: 100% !important;
+  flex: 1 !important;
+}
+
+/* Force accessories grid to maintain grid layout at all screen sizes */
+.accessories-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)) !important;
+  width: 100% !important;
+}
+
+section .padded {
+  margin: 1em;
+  width: auto;
+}
+
+/* Footer removed; migrate status to header */
+
+/* Settings page enhancements to mirror train form styles */
+.form-page-container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.back-to-configure-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  color: var(--text-bright);
+  background: var(--background-alt);
+  border: 1px solid var(--border);
+  font-size: inherit;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.back-to-configure-btn:hover {
+  background: var(--button-hover, #0056b3);
+  border-color: var(--button-hover, #0056b3);
+  color: #fff;
+}
+
+.settings-message {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.settings-message.error {
+  background: rgba(220, 53, 69, 0.15);
+  border: 1px solid rgba(220, 53, 69, 0.5);
+  color: var(--text-bright);
+}
+
+.form-card {
+  background: var(--background-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 0 auto 20px auto;
+}
+.test-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Global slide-over notification system (mirrors configure app) */
+.notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  pointer-events: none;
+  max-width: 400px;
+}
+
+.notification {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  pointer-events: auto;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+  word-wrap: break-word;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notification.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.notification.success {
+  border-left: 4px solid #28a745;
+  background-color: var(--background);
+}
+
+.notification.error {
+  border-left: 4px solid #dc3545;
+  background-color: var(--background);
+}
+
+.notification.info {
+  border-left: 4px solid #17a2b8;
+  background-color: var(--background);
+}
+
+.notification.warning {
+  border-left: 4px solid #ffc107;
+  background-color: var(--background);
+}
+
+.notification-message {
+  flex: 1;
+  margin-right: 0.75rem;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: var(--text-muted, #b3b3b3);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.test-actions button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Simple modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--background);
+  color: var(--text-bright);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: min(720px, 92%);
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.modal-header, .modal-footer { padding: 1rem; border-bottom: 1px solid var(--border); position: relative; }
+.modal-footer { border-top: 1px solid var(--border); border-bottom: none; display: flex; gap: 0.5rem; justify-content: flex-end; }
+.modal-body { padding: 1rem; }
+.gateway-modal-input { width: 100%; box-sizing: border-box; }
+.modal-close { background: none; border: none; color: var(--text-bright); font-size: 1.25rem; cursor: pointer; position: absolute; right: 0.75rem; top: 0.75rem; }
+.test-log { margin-top: 0.75rem; font-family: monospace; white-space: pre-wrap; }
+
+.debug-console {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: var(--background);
+  color: var(--text-bright);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  max-height: 260px;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+.form-card h2 {
+  margin-top: 0;
+}
+
+.form-card label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.form-card input[type="text"],
+.form-card input[type="url"],
+.form-card input[type="number"],
+.form-card input[type="password"] {
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--background);
+    color: var(--text-bright);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.gateway-empty-hint {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-muted, #888);
+  font-size: 0.9em;
+}
+
+.connection-status {
+  font-weight: 500;
+  margin: 0.25rem 0;
+}
+.connection-status-live {
+  color: var(--success, #28a745);
+}
+.connection-status-offline {
+  color: var(--text-muted, #888);
+}
+.connection-sync-hint {
+  margin: 0.5rem 0 0;
+  color: var(--text-muted, #888);
+  font-size: 0.9em;
+}
+.sync-status {
+  margin-left: 0.5rem;
+  color: var(--text-muted, #888);
+  font-size: 0.9em;
+}
+
+#serverSyncModeCell .connection-status { margin-right: 0.5rem; }
+#serverSyncModeCell .btn-small,
+#lastSyncAtCell .btn-small { padding: 0.2rem 0.5rem; font-size: 0.85em; }
+
+.sync-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border, #ccc);
+  border-top-color: var(--button-base, #0d6efd);
+  border-radius: 50%;
+  animation: sync-spin 0.7s linear infinite;
+}
+@keyframes sync-spin {
+  to { transform: rotate(360deg); }
+}
+
+.status-stack { display: flex; flex-direction: column; gap: 16px; }
+.status-section-head { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.5rem; }
+.status-section-head h3 { margin: 0; }
+.status-section table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.status-section table td { padding: 6px 8px; border-bottom: 1px solid var(--border); width: 50%; }
+.status-section table td:first-child { font-weight: 500; }
+.status-link {
+  color: white !important;
+  text-decoration: underline !important;
+}
+.train-details {
+  max-height: 230px;
+}
+
+@media (max-width: 900px) {
+  .status-grid { grid-template-columns: 1fr; }
+}
+
+
+.formcenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.formcenter form input {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.recaptcha-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: var(--button-base);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--button-hover);
+}
+
+.train {
+  display: grid;
+  grid-template-rows: 1fr auto; /* controls at bottom, details fill remaining */
+  height: 100%;
+}
+
+.container {
+  background-color: var(--button-base);
+}
+
+.train-details {
+  display: flex;
+  position: relative;
+}
+
+.train-image {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  z-index: 1;
+  width: 100%;
+  cursor: pointer;
+}
+
+.bubble {
+  display: block;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  width: max-content;
+  z-index: 10;
+}
+
+.train-name {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  max-width: 230px;
+}
+
+.DCCNumber {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.bottomRight {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.train-image img {
+  max-height: 180px;
+  vertical-align: middle;
+}
+
+.train-control {
+  margin: 0px 10px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.train-control panel {
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  max-width: 50%;
+}
+
+.train-control .throttle-panel {
+  padding-bottom: 4px;
+  margin-left: 8px;
+  display: flex;
+}
+
+.train-control .direction-buttons button {
+  padding: 0;
+  max-height: 45px;
+}
+
+.train-control .direction-buttons button span {
+  font-size: 2em;
+  position: relative;
+  top: -3px;
+}
+
+#trains {
+  width: 100%;
+}
+
+#serverSettings {
+  margin: 30px;
+}
+
+form label {
+  display: inline-block;
+  width: 200px;
+  color: var(--text-bright);
+}
+
+form .controls {
+  display: inline-block;
+}
+
+form input, form select, form textarea {
+  background-color: var(--background-alt);
+  color: var(--text-bright);
+  border: 1px solid var(--border);
+  padding: 8px;
+  border-radius: 4px;
+}
+
+/* Mobile Navigation Styles */
+.menuIcon {
+  display: none;
+  position: relative;
+  float: right;
+  margin: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.grid-icon {
+  display: grid;
+  grid-template-columns: repeat(2, 10px);
+  grid-template-rows: repeat(2, 10px);
+  gap: 6px;
+}
+
+.grid-icon span {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--text-bright);
+}
+
+/* Modal container */
+.menuModal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  width: 420px;
+  height: 640px;
+  margin-left: -210px;
+  margin-top: -320px;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Buttons container */
+.menuModal-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  padding: 0;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.menuModal-buttons button {
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  transition: background-color 0.3s;
+  min-width: 50%;
+  background-color: var(--button-base);
+}
+.menuModal-buttons button img {
+  width: 75%;
+  height: auto;
+  max-width: 150px;
+  object-fit: contain;
+}
+
+.menuModal-buttons button:hover {
+  background-color: var(--button-hover);
+}
+
+/* Mobile responsive */
+@media screen and (max-width: 900px) {
+  body {
+    max-height: calc(100vh);
+    overflow-x: hidden;
+  }
+  
+  .content {
+    display: block;
+  }
+  
+  
+  #trainContainer {
+    display: block;
+    margin-top: 0px;
+  }
+  
+  #container2, #container3, #container4 {
+    display: none;
+  }
+  
+  .container {
+    width: 100%;
+    /* fill viewport minus header approx */
+    min-height: calc(100vh - 130px);
+    text-align: center;
+    display: inline-grid;
+  }
+  /* Train details on top, train-control pinned to bottom of container */
+  .train {
+    display: grid;
+    grid-template-rows: 1fr auto; /* controls at bottom, details fill remaining */
+    height: 100%;
+  }
+
+  .train-control {
+    margin: 0px 10px;
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .add-train-button {
+    border-radius: 0px;
+  }
+  
+  form label {
+    width: 150px;
+  }
+  
+  form input, form select, form textarea {
+    width: calc(100vw - 210px);
+    max-width: calc(100vw - 210px);
+  }
+  
+  form .btn, form button {
+    width: 100%;
+    min-width: 100%;
+    margin-top: 1em;
+  }
+  
+  h1 {
+    font-size: 1.5em;
+  }
+  
+  .menuModal {
+    width: 95%;
+    height: calc(100vh - 90px);
+    margin-left: 0;
+    margin-top: 0;
+    border-radius: 0;
+    left: 2.5%;
+    top: 10%;
+  }
+  
+  .menuIcon {
+    display: block;
+  }
+  
+  .topNav .navButton {
+    display: none;
+  }
+  
+  .topNav {
+    padding: 0.5rem 1rem;
+  }
+  
+  .nav-links {
+    gap: 0.5rem;
+  }
+}
+
+/* Modal content wrapper (for inner padding/structure) */
+.menuModal-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  background: var(--background);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.menuModal-home-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem 1rem;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: var(--background-alt);
+  color: var(--text-bright);
+  transition: background-color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.menuModal-home-btn:hover {
+  background: var(--button-hover);
+  border-color: var(--button-hover);
+  color: #fff;
+}
+
+/* Depot selection modal styles */
+.depotModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.depotModal-content {
+  background: var(--background);
+  color: var(--text-bright);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: min(95vw, 1200px);
+  height: min(90vh, 800px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.depotModal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.depotModal-header h2 {
+  margin: 0;
+  color: var(--text-bright);
+}
+
+.depotModal-close {
+  background: none;
+  border: none;
+  color: var(--text-bright);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.depotModal-close:hover {
+  background: var(--button-hover);
+  border-radius: 4px;
+}
+
+.depotModal-search {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.depotModal-search input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--background-alt);
+  color: var(--text-bright);
+  font-size: 1rem;
+}
+
+.depotModal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* Control key required / invalid key modal */
+.controlKeyModal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.controlKeyModal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.controlKeyModal-content {
+  position: relative;
+  background: var(--background);
+  color: var(--text-bright);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 420px;
+  width: 100%;
+}
+
+.controlKeyModal-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+}
+
+.controlKeyModal-message {
+  margin: 0 0 1rem 0;
+  color: var(--text-muted, #888);
+  font-size: 0.95rem;
+}
+
+.controlKeyModal-form label {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.controlKeyModal-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--background-alt);
+  color: var(--text-bright);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.controlKeyModal-validation {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.controlKeyModal-validation.error {
+  background: rgba(220, 53, 69, 0.15);
+  color: var(--text-bright);
+  border: 1px solid rgba(220, 53, 69, 0.5);
+}
+
+.controlKeyModal-validation.checking {
+  color: var(--text-muted, #888);
+}
+
+.controlKeyModal-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.controlKeyModal-settingsLink {
+  color: var(--button-base, #0d6efd);
+  text-decoration: none;
+}
+
+.controlKeyModal-settingsLink:hover {
+  text-decoration: underline;
+}
+
+/* Child lock modals (trains screen) */
+.childLockModal {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.childLockModal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.childLockModal-content {
+  position: relative;
+  background: var(--background);
+  color: var(--text-bright);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.childLockModal-header {
+  margin-bottom: 0.75rem;
+}
+
+.childLockModal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.childLockModal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.childLockModal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.childLock-section {
+  margin-bottom: 1rem;
+}
+
+.childLock-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.childLock-toggle-switch {
+  justify-content: flex-end;
+}
+
+.childLock-toggle-switch input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  width: 42px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--background-alt);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.childLock-toggle-switch input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--text-bright);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+}
+
+.childLock-toggle-switch input[type="checkbox"]:checked {
+  background: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.childLock-toggle-switch input[type="checkbox"]:checked::before {
+  transform: translateX(20px);
+}
+
+.childLock-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.childLock-functions-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.childLock-functions-list {
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem;
+  background: var(--background-alt);
+}
+
+.childLock-function-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.childLock-function-row:last-child {
+  border-bottom: none;
+}
+
+.childLock-function-name {
+  font-size: 0.95rem;
+}
+
+.childLock-help {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--text-muted, #888);
+}
+
+.childLock-error {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: #f99;
+}
+
+.childLockModal input[type="password"] {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--background-alt);
+  color: var(--text-bright);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.childLock-pin-keypad {
+  margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.childLock-pin-keypad button {
+  width: 100%;
+  min-height: 40px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.childLock-max-speed-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.childLock-max-speed-row input[type="range"] {
+  width: 100%;
+  accent-color: #0d6efd;
+  background: transparent;
+}
+
+/* Strong blue styling for max-speed slider on dark background */
+.childLock-max-speed-row input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  background: linear-gradient(to right, #0d6efd, #0d6efd);
+  border-radius: 999px;
+}
+
+.childLock-max-speed-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0d6efd;
+  border: 2px solid #fff;
+  margin-top: -6px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.6);
+}
+
+.childLock-max-speed-row input[type="range"]::-moz-range-track {
+  height: 6px;
+  background: #0d6efd;
+  border-radius: 999px;
+}
+
+.childLock-max-speed-row input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0d6efd;
+  border: 2px solid #fff;
+  box-shadow: 0 0 4px rgba(0,0,0,0.6);
+}
+
+.childLock-max-speed-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.childLock-max-speed-btn {
+  flex: 1;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+.depotTrainGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 0;
+}
+
+.depotTrainCard {
+  background: var(--background-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.depotTrainCard:hover {
+  border-color: var(--text-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.depotTrainCard .trainImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  z-index: 1;
+}
+
+.depotTrainCard .trainImage img {
+  max-height: 180px;
+  vertical-align: middle;
+  object-fit: contain;
+}
+
+.depotTrainCard .bubble {
+  display: block;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  width: max-content;
+  z-index: 10;
+  font-size: 0.8rem;
+}
+
+.depotTrainCard .trainMake {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  max-width: 45%;
+}
+
+.depotTrainCard .trainName {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  max-width: 45%;
+}
+
+.depotTrainCard .trainDCC {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.depotTrainCard .trainFunctions {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+
+/* Desktop layout */
+@media screen and (min-width: 769px) {
+  #trainContainer {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+    overflow-x: auto;
+    white-space: nowrap;
+    overflow-y: hidden;
+  }
+  
+  .container {
+    display: inline-grid;
+    margin: 10px;
+    vertical-align: top;
+    border: 1px solid var(--border);
+    width: 370px;
+    height: 570px;
+    border-radius: 5px;
+    overflow-y: hidden;
+  }
+  
+  .container-selector {
+    display: none;
+  }
+
+  /* When in desktop child-lock mode, give trainContainer extra breathing room */
+  #trainContainer.childLock-desktop-active {
+    margin: 0.5em 1em;
+  }
+}
+
+/* Desktop full-screen layout for locked train */
+@media screen and (min-width: 769px) {
+  .container.childLock-desktop {
+    width: 100%;
+    max-width: none;
+    height: calc(100vh - 110px);
+    margin: 10px 0;
+  }
+
+  .container.childLock-desktop .train {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); /* left 1/3, right 2/3 */
+    grid-template-rows: auto minmax(0, 1fr); /* picture row, throttle row (can shrink) */
+    gap: 1rem;
+    height: 100%;
+    min-height: 0;
+  }
+
+  /* Left column: picture (with existing overlays) on top */
+  .container.childLock-desktop .train-details {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+  .container.childLock-desktop .train-image {
+    width: 100%;
+    min-height: 260px;
+  }
+
+  /* Let throttle + all-functions participate directly in the grid */
+  .container.childLock-desktop .train-control {
+    display: contents;
+  }
+
+  /* Left column: throttle fills remaining height under picture */
+  .container.childLock-desktop .throttle-panel {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    height: 100%;
+  }
+
+  /* Right column: all functions spanning full height */
+  .container.childLock-desktop .all-functions-panel {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+  }
+}
