@@ -18,6 +18,9 @@ body {
   background-color: var(--background);
   color: var(--text-bright);
   font-family: Arial, sans-serif;
+  -webkit-user-select: none;   /* iOS Safari / Chrome */
+  user-select: none;           /* Standard */
+  -webkit-touch-callout: none; /* Disable long-press callout on iOS */
 }
 
 main {
