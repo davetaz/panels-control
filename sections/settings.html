@@ -13,7 +13,7 @@
                 </div>
                 <section id="serverSyncStatus" aria-live="polite">
                     <table>
-                        <tr><td>Account</td><td id="accountStatusCell">Logged in</td></tr>
+                        <tr><td>Account</td><td id="accountStatusCell">Not logged in</td></tr>
                         <tr><td>Mode</td><td id="serverSyncModeCell"><span id="connectionStatus">Checking…</span></td></tr>
                         <tr><td>Last sync</td><td id="lastSyncAtCell"><span id="lastSyncAtText">—</span></td></tr>
                         <tr><td>Trains</td><td id="lastSyncTrainsCell">—</td></tr>
@@ -34,10 +34,18 @@
                 </section>
             </div>
             <div class="status-section">
-                <h3>System</h3>
-                <section id="systemStatus">
+                <div class="status-section-head">
+                    <h3>System</h3>
+                    <div class="status-section-actions">
+                        <button type="button" id="checkUpdatesBtn" class="btn btn-small">Check for updates</button>
+                        <button type="button" id="installUpdateBtn" class="btn btn-small" style="display: none;">Install update</button>
+                    </div>
+                </div>
+                <section id="systemStatus" aria-live="polite">
                     <table>
                         <tr><td>Version</td><td id="systemVersionCell">Checking…</td></tr>
+                        <tr><td>Latest version</td><td id="systemLatestVersionCell">—</td></tr>
+                        <tr><td>Update status</td><td id="systemUpdateStatusCell">—</td></tr>
                     </table>
                 </section>
             </div>
