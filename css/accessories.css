@@ -1,6 +1,28 @@
 /* Control App Accessory Styles */
 
-/* Search Container */
+/* Filters row (aligned with backend accessories / macros list) */
+.filters-container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+}
+
+.search-and-filters-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: stretch;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.search-and-filters-row .search-container {
+    flex: 1;
+    min-width: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+
 .search-container {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -15,6 +37,11 @@
     background: var(--background);
     color: var(--text-primary);
     font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.filters-container .search-container input {
+    height: 48px;
 }
 
 .search-container input:focus {
@@ -25,6 +52,137 @@
 
 .search-container input::placeholder {
     color: var(--text-muted);
+}
+
+.filter-inline-desktop {
+    flex-shrink: 0;
+    min-width: 180px;
+}
+
+.filter-inline-desktop select {
+    width: 100%;
+    height: 48px;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--background-alt);
+    color: var(--text-primary);
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.filters-container .filters-trigger.mobile-only {
+    display: none;
+}
+
+.filters-trigger {
+    flex-shrink: 0;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+}
+
+.filters-trigger .filter-icon {
+    display: block;
+}
+
+/* Filters modal (mobile) */
+.accessories-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.accessories-modal[hidden] {
+    display: none;
+}
+
+.accessories-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.accessories-modal-content {
+    position: relative;
+    background: var(--background);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 360px;
+    max-height: 90vh;
+    overflow: auto;
+}
+
+.accessories-modal-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.accessories-modal-header h3 {
+    margin: 0;
+    font-size: 1.125rem;
+}
+
+.accessories-modal-close {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+.accessories-modal-body {
+    padding: 1rem 1.25rem;
+}
+
+.accessories-modal-body .category-filter + .category-filter {
+    margin-top: 1rem;
+}
+
+.accessories-modal-body .category-filter label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.accessories-modal-body .category-filter select {
+    width: 100%;
+    height: 48px;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--background-alt);
+    color: var(--text-primary);
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.accessories-modal-footer {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+    .filters-container .filter-inline-desktop {
+        display: none !important;
+    }
+
+    .filters-container .filters-trigger.mobile-only {
+        display: flex !important;
+    }
 }
 
 /* Macros Section */
@@ -54,57 +212,37 @@
     padding: 1rem;
 }
 
-.macro-stage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem;
-}
-
-.macro-icons-stack {
-    display: flex;
+/* Macro: full-width combination grid; 2 columns by default, 3 only when >4 states */
+.accessory-card.macro-card {
     flex-direction: column;
-    gap: 0.35rem;
-    width: 100%;
+    align-items: stretch;
+    height: auto;
+    min-height: 200px;
 }
 
-.macro-icon-slot {
+.accessory-card.macro-card .accessory-control.macro-combination-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    align-content: start;
+    width: 100%;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 180px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-left: 0;
+}
+
+.accessory-card.macro-card .accessory-control.macro-combination-grid.macro-combination-grid--cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.accessory-card.macro-card .accessory-control.macro-combination-grid .macro-run-button {
     width: 100%;
     min-height: 48px;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    background: var(--background);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    text-align: center;
-    padding: 0.25rem;
-}
-
-.macro-icon-slot img {
-    width: 100%;
-    height: 48px;
-    object-fit: contain;
-}
-
-.macro-controls {
-    position: relative;
-    height: 100%;
-}
-
-.macro-run-button {
-    background: var(--button-base);
-    color: var(--button-text);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-    width: 100%;
-    min-height: 50px;
+    box-sizing: border-box;
 }
 
 .macro-run-button:hover:not(:disabled) {
@@ -201,6 +339,23 @@
   font-size: 0.8rem;
   z-index: 10;
   max-width: calc(100% - 20px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.2;
+}
+
+.accessory-name-primary {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accessory-name-secondary {
+  font-weight: 500;
+  font-size: 0.68rem;
+  opacity: 0.9;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -383,13 +538,11 @@
     padding: 0.75rem;
   }
 
-  .macro-stage {
-    padding: 0.25rem;
-  }
-
-  .macro-run-button {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.8rem;
+  .accessory-card.macro-card .accessory-control.macro-combination-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-left: 0;
+    min-height: 160px;
+    max-height: 180px;
   }
 }
 

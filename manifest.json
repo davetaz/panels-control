@@ -1,0 +1,27 @@
+{
+  "name": "PanelsD.CC Control",
+  "short_name": "Control",
+  "description": "Standalone control app for PanelsD.CC",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#202b38",
+  "theme_color": "#202b38",
+  "icons": [
+    {
+      "src": "img/icon_128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon_180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

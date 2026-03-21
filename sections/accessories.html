@@ -1,6 +1,50 @@
-<!-- Search Section -->
-<div class="search-container">
-    <input type="text" id="accessorySearch" placeholder="Search accessories and macros by name..." />
+<!-- Search + filters (match backend accessories + macros list UIs) -->
+<div class="filters-container">
+    <div class="search-and-filters-row">
+        <div class="search-container">
+            <input type="text" id="accessorySearch" placeholder="Search accessories and macros by name, description, or location..." />
+        </div>
+        <div class="category-filter filter-inline-desktop">
+            <select id="accessoryTypeFilter" aria-label="Filter by type">
+                <option value="">All Types</option>
+            </select>
+        </div>
+        <div class="category-filter filter-inline-desktop">
+            <select id="macroLocationFilter" aria-label="Filter by location">
+                <option value="">All locations</option>
+            </select>
+        </div>
+        <button type="button" class="filters-trigger btn btn-primary mobile-only" id="filtersTrigger" aria-label="Filters" title="Filters">
+            <svg class="filter-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16l-5 8v6l-2 2v-8L4 4z"/></svg>
+        </button>
+    </div>
+</div>
+
+<div id="filtersModal" class="accessories-modal" role="dialog" aria-labelledby="filtersModalTitle" aria-modal="true" hidden>
+    <div class="accessories-modal-backdrop" id="filtersModalBackdrop"></div>
+    <div class="accessories-modal-content">
+        <div class="accessories-modal-header">
+            <h3 id="filtersModalTitle">Filters</h3>
+            <button type="button" class="accessories-modal-close" id="filtersModalClose" aria-label="Close">&times;</button>
+        </div>
+        <div class="accessories-modal-body">
+            <div class="category-filter">
+                <label for="accessoryTypeFilterModal">Type</label>
+                <select id="accessoryTypeFilterModal">
+                    <option value="">All Types</option>
+                </select>
+            </div>
+            <div class="category-filter">
+                <label for="macroLocationFilterModal">Location</label>
+                <select id="macroLocationFilterModal">
+                    <option value="">All locations</option>
+                </select>
+            </div>
+        </div>
+        <div class="accessories-modal-footer">
+            <button type="button" class="btn btn-primary" id="filtersModalDone">Done</button>
+        </div>
+    </div>
 </div>
 
 <!-- Accessory Template -->
@@ -13,7 +57,8 @@
             <!-- Control buttons will be populated here -->
         </div>
         <span class="bubble accessory-name">
-            <!-- Accessory name will be populated here -->
+            <span class="accessory-name-primary"></span>
+            <span class="accessory-name-secondary" hidden></span>
         </span>
     </div>
 </template>
